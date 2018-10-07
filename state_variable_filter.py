@@ -55,14 +55,10 @@ class SVF():
 				"bandstop" : band-stop (notch) filter response
 		'''
 		
-		# Update the timeshift (old values, z^{-1})
-		self.LP_o = self.LP
-		self.BP_o = self.BP
-		
 		# Perform the filtering operation
-		self.HP = input_sample - self.LP_o - (self.q * self.BP_o)
-		self.BP = self.BP_o + (self.f * self.HP)
-		self.LP = self.LP_o + (self.f * self.BP_o)
+		self.HP = input_sample - self.LP - (self.q * self.BP)
+		self.BP = self.BP + (self.f * self.HP)
+		self.LP = self.LP + (self.f * self.BP)
 		self.NP = self.LP + self.HP
 		
 		if filter_type.lower() == "lowpass":
